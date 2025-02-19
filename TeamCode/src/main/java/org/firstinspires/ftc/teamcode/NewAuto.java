@@ -104,6 +104,8 @@ public class NewAuto extends LinearOpMode {
                 }
                 for(int i = 0; i<= 50; i++) {
                     moveBackwardsX(newX);
+                    telemetry.addData("moved ", i);
+                    telemetry.update();
                 }
             }
 
@@ -114,8 +116,10 @@ public class NewAuto extends LinearOpMode {
                     telemetry.update();
                     sleep(500);
                 }
-                for(int i = 0; i<= 50; i++) {
+                for(int i = 0; i<= 3; i++) {
                     moveForwardX(newX);
+                    telemetry.addData("moved ", i);
+                    telemetry.update();
                 }
             }
 
@@ -159,8 +163,8 @@ public class NewAuto extends LinearOpMode {
         rightMotor.setDirection(DcMotor.Direction.FORWARD);
         int leftCurrPos = (int)(currX += newX);
         int rightCurrPos = (int)(currX += newX);
-        rightMotor.setPower(.3);
-        leftMotor.setPower(.3);
+        rightMotor.setPower(1);
+        leftMotor.setPower(1);
         while (
                 (leftMotor.isBusy() || rightMotor.isBusy())) {
 
