@@ -36,8 +36,8 @@ import java.util.Iterator;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 
-@Autonomous(name="SailorBot Auto", group="Robot")
-public class SailorBotAuto extends LinearOpMode {
+@Autonomous(name="DM", group="Robot")
+public class DM extends LinearOpMode {
     private DcMotor rightMotor = null;
     private DcMotor leftMotor = null;
     //private DcMotor armMotor = null;
