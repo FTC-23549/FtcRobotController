@@ -33,6 +33,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareDevice;
 import java.util.Iterator;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
 
 @Autonomous(name="SailorBot Auto", group="Robot")
 public class SailorBotAuto extends LinearOpMode {
