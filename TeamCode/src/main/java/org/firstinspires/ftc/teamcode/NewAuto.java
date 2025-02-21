@@ -4,7 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-
+//ALL PREVIOUS INTS HAVE BEEN CHANGED TO DOUBLES
+//THERE SHOULD BE NO INTS LEFT IF THERE IS CHANGE IT
 @Autonomous(name="New Auto", group="Robot")
 public class NewAuto extends LinearOpMode {
     private boolean DEBUG = true;
@@ -15,6 +16,10 @@ public class NewAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+
+        Telemetry.Item setRetained(java.lang.Boolean retained);
+        setRetained(true);
+
         telemetry.addData("entering runOpMode", 1);
         waitForStart();
         telemetry.addData("ran waitForStart", 1);
@@ -25,8 +30,9 @@ public class NewAuto extends LinearOpMode {
         // armMotor = hardwareMap.get(DcMotor.class,"arm");
         curr(0, 0);
         telemetry.addData("currX & currY set to 20", 1);
-        moveX(1000);
+        moveX(3);
         telemetry.addData("moveX 5 ran", 1);
+        telemetry.addData("current position", currX, ", ", currY);
         telemetry.update();
 
 
@@ -66,23 +72,24 @@ public class NewAuto extends LinearOpMode {
     // }
 
     // sets the new current x pos when called
-    public void currX(int newX)
+    public void currX(double newX) //same w these
     {
-        int leftCurrPos = (int)(currX += newX);
-        int rightCurrPos = (int)(currX += newX);
+        double leftCurrPos = (double)(currX += newX);
+        double rightCurrPos = (double)(currX += newX);
     }
 
     // sets the new current x pos when called
-    public void currY(int newY)
+    public void currY(double newY) //these all used to be ints
     {
-        int leftCurrPos = (int) (currY += newY);
-        int rightCurrPos = (int)(currY += newY);
+        double leftCurrPos = (double) (currY += newY);
+        double rightCurrPos = (double)(currY += newY);
     }
 
     // moves either forwards or backwards based on the current pos of the robot
     // compared to the new input of coords requested to move
-    public void moveX(int newX)
+    public void moveX(double newX)
     {
+        double moveValue = Math.Abs(newX - currX);
         if (DEBUG) {
             telemetry.addData("in move method", 1);
             telemetry.update();
@@ -102,11 +109,12 @@ public class NewAuto extends LinearOpMode {
                     telemetry.update();
                     sleep(500);
                 }
-                for(int i = 0; i<= 50; i++) {
+                for(double i = 0; i<= moveValue; i+= 0.1) {
                     moveBackwardsX(newX);
                     telemetry.addData("moved ", i);
                     telemetry.update();
                 }
+                currX -= moveValue;
             }
 
             else if (newX > currX)
@@ -116,11 +124,12 @@ public class NewAuto extends LinearOpMode {
                     telemetry.update();
                     sleep(500);
                 }
-                for(int i = 0; i<= 3; i++) {
+                for(double i = 0; i<= moveValue; i+= 0.1) {
                     moveForwardX(newX);
                     telemetry.addData("moved ", i);
                     telemetry.update();
                 }
+                currX += moveValue;
             }
 
             else
@@ -150,19 +159,19 @@ public class NewAuto extends LinearOpMode {
         rightMotor.setPower(0);
     }
 
-    private void moveForwardX(int newX) {
+    private void moveForwardX(double newX) {
         if (DEBUG) {
             telemetry.addData("in moveForwardX", newX);
             telemetry.update();
             sleep(500);
         }
-        leftMotor.setTargetPosition((int) Math.abs(newX -currX));
-        rightMotor.setTargetPosition((int) Math.abs(newX -currX));
+        leftMotor.setTargetPosition((double) Math.abs(newX -currX)); //int
+        rightMotor.setTargetPosition((double) Math.abs(newX -currX)); //int
 
         leftMotor.setDirection(DcMotor.Direction.REVERSE);
         rightMotor.setDirection(DcMotor.Direction.FORWARD);
-        int leftCurrPos = (int)(currX += newX);
-        int rightCurrPos = (int)(currX += newX);
+        double leftCurrPos = (double)(currX += newX); //int
+        double rightCurrPos = (double)(currX += newX); //int
         rightMotor.setPower(1);
         leftMotor.setPower(1);
         while (
@@ -178,57 +187,99 @@ public class NewAuto extends LinearOpMode {
         isMovable = false;
     }
 
-    private void moveBackwardsX(int newX) {
-        leftMotor.setTargetPosition((int) Math.abs(newX -currX));
-        rightMotor.setTargetPosition((int) Math.abs(newX -currX));
+    private void moveBackwardsX(double newX) {
+        leftMotor.setTargetPosition((double) Math.abs(newX -currX));
+        rightMotor.setTargetPosition((double) Math.abs(newX -currX));
 
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
-        int leftCurrPos = (int) (currX -= newX);
-        int rightCurrPos = (int) (currX -= newX);
+        double leftCurrPos = (double) (currX -= newX);
+        double rightCurrPos = (double) (currX -= newX);
         isMovable = false;
     }
 
     // moves either forwards or backwards based on the current pos of the robot
     // compared to the new input of coords requested to move
-    public void moveY(int newY)
+
+    public void moveY(double newY)
     {
+        double moveValue = Math.Abs(newY - currY);
+        if (DEBUG) {
+            telemetry.addData("in move method", 1);
+            telemetry.update();
+            sleep(500);
+        }
         if(isMovable)
         {
+            if (DEBUG) {
+                telemetry.addData("in isMovable loop", isMovable);
+                telemetry.update();
+                sleep(500);
+            }
             if (newY < currY)
             {
-                moveBackwardY(newY);
+                if (DEBUG) {
+                    telemetry.addData("newY is less than currY", newY);
+                    telemetry.update();
+                    sleep(500);
+                }
+                for(double i = 0; i<= moveValue; i+= 0.1) {
+                    moveBackwardsY(newY);
+                    telemetry.addData("moved ", i);
+                    telemetry.update();
+                }
+                currY -= moveValue;
             }
 
             else if (newY > currY)
             {
-                moveForwardY(newY);
+                if (DEBUG) {
+                    telemetry.addData("new Y is greater than currY", newY);
+                    telemetry.update();
+                    sleep(500);
+                }
+                for(double i = 0; i<= moveValue; i+= 0.1) {
+                    moveForwardY(newY);
+                    telemetry.addData("moved ", i);
+                    telemetry.update();
+                }
+                currY += moveValue;
             }
 
             else
             {
-                stop();
+                if (DEBUG) {
+                    telemetry.addData("newY = currY", newY);
+                    telemetry.update();
+                    sleep(500);
+                }
+                dontMove();
             }
         }
         else
         {
-            stop();
-        }
+            if (DEBUG) {
+                telemetry.addData("not movable", newY);
+                telemetry.update();
+                sleep(500);
+            }
+            dontMove();
 
+        }
     }
 
-    private void moveForwardY(int newY) {
-        leftMotor.setTargetPosition((int) Math.abs(newY -currY));
-        rightMotor.setTargetPosition((int) Math.abs(newY -currY));
+    private void moveForwardY(double newY) {
+        leftMotor.setTargetPosition((double) Math.abs(newY -currY));
+        rightMotor.setTargetPosition((double) Math.abs(newY -currY));
 
         leftMotor.setDirection(DcMotor.Direction.REVERSE);
         rightMotor.setDirection(DcMotor.Direction.FORWARD);
         isMovable = false;
     }
 
-    private void moveBackwardY(int newY) {
-        leftMotor.setTargetPosition((int) Math.abs(newY -currY));
-        rightMotor.setTargetPosition((int) Math.abs(newY -currY));
+    private void moveBackwardY(double newY) {
+        leftMotor.setTargetPosition((double) Math.abs(newY -currY));
+        rightMotor.setTargetPosition((double) Math.abs(newY -currY));
 
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
@@ -238,7 +289,7 @@ public class NewAuto extends LinearOpMode {
     // sets the right turn (soon to be decided the correct amount for it)
     // same will be made for left turn
     // see if we can get degree based sensors on robot for easy turning
-    public void rightTurn(int turn)
+    public void rightTurn(double turn)
     {
         if(!isMovable)
         {
@@ -251,7 +302,7 @@ public class NewAuto extends LinearOpMode {
 
     }
 
-    public void leftTurn(int turn)
+    public void leftTurn(double turn)
     {
         if(!isMovable)
         {
@@ -264,4 +315,31 @@ public class NewAuto extends LinearOpMode {
 
     }
 }
+
+//unused y move code
+//public void moveY(double newY)
+//{
+//    if(isMovable)
+//    {
+//        if (newY < currY)
+//        {
+//            moveBackwardY(newY);
+//        }
+//
+//        else if (newY > currY)
+//        {
+//            moveForwardY(newY);
+//        }
+//
+//        else
+//        {
+//            stop();
+//        }
+//    }
+//    else
+//    {
+//        stop();
+//    }
+//
+//}
 
