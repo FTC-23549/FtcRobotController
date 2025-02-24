@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-//ALL PREVIOUS INTS HAVE BEEN CHANGED TO intS
+//ALL PREVIOUS INTS HAVE BEEN CHANGED TO doubles
 //THERE SHOULD BE NO INTS LEFT IF THERE IS CHANGE IT
 //hella notes get ready
 /*
@@ -134,7 +134,7 @@ public class NewAuto extends LinearOpMode {
                     telemetry.update();
                     sleep(500);
                 }
-                for(int i = 0; i<= moveValue; i+= 0.1) {
+                for(int i = 0; i<= moveValue; i+= 1) {
                     moveBackwardsX(newX);
                     telemetry.addData("moved ", i);
                     telemetry.update();
@@ -149,7 +149,7 @@ public class NewAuto extends LinearOpMode {
                     telemetry.update();
                     sleep(500);
                 }
-                for(int i = 0; i<= moveValue; i+= 0.1) {
+                for(int i = 0; i<= moveValue; i+= 1) {
                     moveForwardX(newX);
                     telemetry.addData("moved ", i);
                     telemetry.update();
@@ -197,8 +197,8 @@ public class NewAuto extends LinearOpMode {
         rightMotor.setDirection(DcMotor.Direction.FORWARD);
         int leftCurrPos = (int)(currX += newX); //int
         int rightCurrPos = (int)(currX += newX); //int
-        rightMotor.setPower(1);
-        leftMotor.setPower(1);
+        rightMotor.setPower(.2);
+        leftMotor.setPower(.2);
         while (
                 (leftMotor.isBusy() || rightMotor.isBusy())) {
 
@@ -248,8 +248,8 @@ public class NewAuto extends LinearOpMode {
                     telemetry.update();
                     sleep(500);
                 }
-                for(int i = 0; i<= moveValue; i+= 0.1) {
-                    moveBackwardsY(newY);
+                for(int i = 0; i<= moveValue; i+= 1) {
+                    moveBackwardY(newY);
                     telemetry.addData("moved ", i);
                     telemetry.update();
                 }
@@ -263,7 +263,7 @@ public class NewAuto extends LinearOpMode {
                     telemetry.update();
                     sleep(500);
                 }
-                for(int i = 0; i<= moveValue; i+= 0.1) {
+                for(int i = 0; i<= moveValue; i+= 1) {
                     moveForwardY(newY);
                     telemetry.addData("moved ", i);
                     telemetry.update();
