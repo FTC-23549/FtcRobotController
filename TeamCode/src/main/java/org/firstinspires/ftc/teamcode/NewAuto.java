@@ -6,6 +6,31 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 //ALL PREVIOUS INTS HAVE BEEN CHANGED TO intS
 //THERE SHOULD BE NO INTS LEFT IF THERE IS CHANGE IT
+//hella notes get ready
+/*
+ok so basically 1. backwards for y is being a bitch
+and 2. you cant have a target position be a double
+this suck
+so
+we (hopefully) can work around it
+idk how
+but
+we need to
+were gonna have to find a way to set target position as a double bc idk what else to do
+this is horrible
+this is far to much thinking
+ceci is gonna be dissapointed
+so is sr albertine
+lucy wont be bc shes not here 😒
+so
+TLDR:
+we need to fix stuff bc who ever made these special methods that are pre implemented are stupid and
+made target position an int when we need a double
+
+
+(i feel so sorry for the person who takes this on after us bc this is
+no bueno, non bene, 좋지 않다, 良くない, не хорошо, non est bonum, si nzuri, pas bon, δεν είναι καλό
+ */
 @Autonomous(name="New Auto", group="Robot")
 public class NewAuto extends LinearOpMode {
     private boolean DEBUG = true;
