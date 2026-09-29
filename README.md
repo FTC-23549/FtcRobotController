@@ -1,3 +1,7 @@
+## ARCHIVED
+
+This repository has been archived as READ ONLY.  It was originally created as an MDSArobotics repository but moved under the FTC-23549 organization when it was created.  The organization was created so that members could be added and use private repositories, if needed.  However, the team then duplicated the repository under the MDSArobotics GitHub account with a new fork from the FTC SDK and has continued to use it for DECODE and BIOBUZZ.
+
 ## NOTICE
 
 This repository contains the public FTC SDK for the DECODE (2025-2026) competition season.
